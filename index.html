@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+  <title>Shattered Spark — A Centelha Estilhaçada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<canvas id="canvas-bg"></canvas>
+<div id="game">
+
+<!-- ══════ TITLE ══════ -->
+<div id="screen-title" class="screen">
+  <div class="title-eyebrow">— Aeryndel —</div>
+  <div class="title-main">SHATTERED<br>SPARK</div>
+  <div class="title-divider">── ✦ ── ✦ ──</div>
+  <div class="title-sub">A CENTELHA ESTILHAÇADA</div>
+  <div class="title-icon">⚡</div>
+  <blockquote class="title-quote">"Quando sua Centelha apagar, você não vai morrer.<br>Vai continuar — mas esquecerá por que."</blockquote>
+  <button class="btn-start" onclick="nextScreen('race')">▶ &nbsp;INICIAR DEMO</button>
+  <div class="title-version">DEMO v0.1</div>
+  <div class="title-copy">© Shattered Spark</div>
+</div>
+
+<!-- ══════ RACE CAROUSEL ══════ -->
+<div id="screen-race" class="screen carousel-screen">
+  <div class="carousel-header">
+    <div class="carousel-label">PASSO 1 DE 3 — ESCOLHA SUA RAÇA</div>
+    <div class="carousel-title">CADA RAÇA CARREGA UMA CENTELHA DIFERENTE</div>
+  </div>
+  <div class="carousel-arrow left disabled" id="race-arr-l" onclick="slideRace(-1)">◀</div>
+  <div class="carousel-arrow right" id="race-arr-r" onclick="slideRace(1)">▶</div>
+  <div class="carousel-track-wrap">
+    <div class="carousel-track" id="race-track">
+
+      <!-- HUMANO -->
+      <div class="race-slide">
+        <div class="race-card-inner unlocked">
+          <!-- A: Image -->
+          <div class="rc-img-zone">
+            <span class="rc-img-icon">🧑</span>
+            <span class="rc-img-label">IMAGEM DO PERSONAGEM</span>
+          </div>
+          <!-- B: Name+Desc / Classes -->
+          <div class="rc-name-desc">
+            <div class="rc-name-block">
+              <div class="rc-race-name">HUMANO</div>
+              <span class="rc-available-badge">✦ DISPONÍVEL</span>
+              <div class="rc-desc">Sem a longevidade dos elfos ou a força dos anões, sua arma é a <em>adaptação</em>. Você deve ser melhor que todos, pois está <em>sozinho</em>.</div>
+            </div>
+            <div class="rc-classes-block">
+              <div class="rc-classes-label">CLASSES DISPONÍVEIS</div>
+              <div class="rc-class-row"><span class="rc-class-name">⚔ GUERREIRO</span><span class="rc-class-desc"> — Mestre em armas, equilibrado.</span></div>
+              <div class="rc-class-row"><span class="rc-class-name">🗡 LADINO</span><span class="rc-class-desc"> — Adaptável, furtivo e crítico.</span></div>
+              <div class="rc-class-row"><span class="rc-class-name">🔮 MAGO</span><span class="rc-class-desc"> — Magia arcana, dano em área.</span></div>
+            </div>
+          </div>
+          <!-- C: Bonus strip -->
+          <div class="rc-bonus-strip">
+            <div class="rc-bonus-label">⚡ BÔNUS DA RAÇA</div>
+            <div class="rc-bonus-text"><em>+1 em qualquer atributo</em> ao subir de nível. Versatilidade sem igual.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ÉLFICO -->
+      <div class="race-slide">
+        <div class="race-card-inner locked">
+          <div class="rc-img-zone"><span class="rc-img-icon">🧝</span><span class="rc-img-label">EM BREVE</span></div>
+          <div class="rc-name-desc">
+            <div class="rc-name-block">
+              <div class="rc-race-name">ÉLFICO</div>
+              <span class="rc-locked-badge">🔒 EM BREVE</span>
+              <div class="rc-desc">Guardiões da memória do mundo. Sua Centelha preserva o que foi.</div>
+            </div>
+            <div class="rc-classes-block">
+              <div class="rc-classes-label">CLASSES</div>
+              <div class="rc-class-row"><span class="rc-class-name">🏹 ARQUEIRO</span></div>
+              <div class="rc-class-row"><span class="rc-class-name">✨ CANTOR DA ALMA</span></div>
+              <div class="rc-class-row"><span class="rc-class-name">🌿 DRUIDA</span></div>
+            </div>
+          </div>
+          <div class="rc-bonus-strip">
+            <div class="rc-bonus-label">⚡ BÔNUS DA RAÇA</div>
+            <div class="rc-bonus-text">Memória eterna — <em>nunca esquece feitiços</em> aprendidos.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOMBRIO -->
+      <div class="race-slide">
+        <div class="race-card-inner locked">
+          <div class="rc-img-zone"><span class="rc-img-icon">💀</span><span class="rc-img-label">EM BREVE</span></div>
+          <div class="rc-name-desc">
+            <div class="rc-name-block">
+              <div class="rc-race-name">SOMBRIO</div>
+              <span class="rc-locked-badge">🔒 EM BREVE</span>
+              <div class="rc-desc">Nascidos entre o véu da morte. Centelha que queima com peso do que foi perdido.</div>
+            </div>
+            <div class="rc-classes-block">
+              <div class="rc-classes-label">CLASSES</div>
+              <div class="rc-class-row"><span class="rc-class-name">💀 CEIFADOR</span></div>
+              <div class="rc-class-row"><span class="rc-class-name">🩸 SANGRADOR</span></div>
+              <div class="rc-class-row"><span class="rc-class-name">🌑 ESPECTRO</span></div>
+            </div>
+          </div>
+          <div class="rc-bonus-strip">
+            <div class="rc-bonus-label">⚡ BÔNUS DA RAÇA</div>
+            <div class="rc-bonus-text">Ressurgência — <em>sobrevive uma vez por batalha</em> com 1 de vida.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARCANO -->
+      <div class="race-slide">
+        <div class="race-card-inner locked">
+          <div class="rc-img-zone"><span class="rc-img-icon">🌀</span><span class="rc-img-label">EM BREVE</span></div>
+          <div class="rc-name-desc">
+            <div class="rc-name-block">
+              <div class="rc-race-name">ARCANO</div>
+              <span class="rc-locked-badge">🔒 EM BREVE</span>
+              <div class="rc-desc">Tecidos da própria magia do mundo. Imprevisível e absoluto.</div>
+            </div>
+            <div class="rc-classes-block">
+              <div class="rc-classes-label">CLASSES</div>
+              <div class="rc-class-row"><span class="rc-class-name">⚗️ ALQUIMISTA</span></div>
+              <div class="rc-class-row"><span class="rc-class-name">🔮 ARCANISTA</span></div>
+              <div class="rc-class-row"><span class="rc-class-name">⚡ FOGUEJANTE</span></div>
+            </div>
+          </div>
+          <div class="rc-bonus-strip">
+            <div class="rc-bonus-label">⚡ BÔNUS DA RAÇA</div>
+            <div class="rc-bonus-text">Fluxo infinito — <em>feitiços não consomem mana</em> uma vez por turno.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="carousel-dots" id="race-dots">
+    <div class="c-dot active"></div><div class="c-dot"></div><div class="c-dot"></div><div class="c-dot"></div>
+  </div>
+  <div class="carousel-bottom">
+    <button class="btn-back" onclick="nextScreen('title')">← VOLTAR</button>
+    <button class="btn btn-ice" id="btn-race-next" onclick="goToClass()">CONFIRMAR →</button>
+  </div>
+</div>
+
+<!-- ══════ CLASS CAROUSEL ══════ -->
+<div id="screen-class" class="screen carousel-screen">
+  <div class="carousel-header">
+    <div class="carousel-label">PASSO 2 DE 3 — ESCOLHA SUA CLASSE</div>
+    <div class="carousel-title">A FORMA COMO SUA CENTELHA SE MANIFESTA</div>
+  </div>
+  <div class="carousel-arrow left disabled" id="class-arr-l" onclick="slideClass(-1)">◀</div>
+  <div class="carousel-arrow right" id="class-arr-r" onclick="slideClass(1)">▶</div>
+  <div class="carousel-track-wrap" id="class-track-wrap">
+    <div class="carousel-track" id="class-track">
+
+      <!-- GUERREIRO -->
+      <div class="class-slide">
+        <div class="class-card-new" id="cc-warrior" onclick="selectClass('warrior')">
+          <!-- A: Image -->
+          <div class="cc-img-zone">
+            <span class="cc-img-icon">⚔️</span>
+            <span class="cc-img-label">IMAGEM DO PERSONAGEM</span>
+          </div>
+          <!-- B: Name+Desc / Attributes -->
+          <div class="cc-name-desc">
+            <div class="cc-name-block">
+              <div class="cc-class-name">⚔ GUERREIRO</div>
+              <div class="cc-tagline"><em>Você confia no aço e no treino, não em milagres.</em></div>
+            </div>
+            <div class="cc-attrs-block">
+              <div class="cc-attrs-label">ATRIBUTOS DA CLASSE</div>
+              <div class="cc-stat-row"><span class="cc-stat-name">FOR</span><div class="cc-stat-bar"><div class="cc-stat-fill" style="width:80%"></div></div><span class="cc-stat-val">8/10</span></div>
+              <div class="cc-stat-row"><span class="cc-stat-name">AGI</span><div class="cc-stat-bar"><div class="cc-stat-fill" style="width:60%"></div></div><span class="cc-stat-val">6/10</span></div>
+              <div class="cc-stat-row"><span class="cc-stat-name">INT</span><div class="cc-stat-bar"><div class="cc-stat-fill" style="width:40%"></div></div><span class="cc-stat-val">4/10</span></div>
+              <div class="cc-stat-row"><span class="cc-stat-name">VIT</span><div class="cc-stat-bar"><div class="cc-stat-fill" style="width:70%"></div></div><span class="cc-stat-val">7/10</span></div>
+            </div>
+          </div>
+          <!-- C: Vantagens -->
+          <div class="cc-info">
+            <div class="cc-advantage-label">★ VANTAGENS DA CLASSE</div>
+            <div class="cc-advantage-text">Versatilidade para mudar de estilo conforme o inimigo. Aprende técnicas novas mais rápido, sobrevivendo onde outros morreriam.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LADINO -->
+      <div class="class-slide">
+        <div class="class-card-new" id="cc-rogue" onclick="selectClass('rogue')">
+          <div class="cc-img-zone">
+            <span class="cc-img-icon">🗡️</span>
+            <span class="cc-img-label">IMAGEM DO PERSONAGEM</span>
+          </div>
+          <div class="cc-name-desc">
+            <div class="cc-name-block">
+              <div class="cc-class-name">🗡 LADINO</div>
+              <div class="cc-tagline"><em>A melhor luta é aquela que não acontece.</em></div>
+            </div>
+            <div class="cc-attrs-block">
+              <div class="cc-attrs-label">ATRIBUTOS DA CLASSE</div>
+              <div class="cc-stat-row"><span class="cc-stat-name">FOR</span><div class="cc-stat-bar"><div class="cc-stat-fill" style="width:50%"></div></div><span class="cc-stat-val">5/10</span></div>
+              <div class="cc-stat-row"><span class="cc-stat-name">AGI</span><div class="cc-stat-bar"><div class="cc-stat-fill" style="width:90%"></div></div><span class="cc-stat-val">9/10</span></div>
+              <div class="cc-stat-row"><span class="cc-stat-name">INT</span><div class="cc-stat-bar"><div class="cc-stat-fill" style="width:60%"></div></div><span class="cc-stat-val">6/10</span></div>
+              <div class="cc-stat-row"><span class="cc-stat-name">VIT</span><div class="cc-stat-bar"><div class="cc-stat-fill" style="width:40%"></div></div><span class="cc-stat-val">4/10</span></div>
+            </div>
+          </div>
+          <div class="cc-info">
+            <div class="cc-advantage-label">★ VANTAGENS DA CLASSE</div>
+            <div class="cc-advantage-text">Furtividade para evitar conflitos. Ataques críticos eliminam ameaças antes que possam reagir.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAGO -->
+      <div class="class-slide">
+        <div class="class-card-new" id="cc-mage" onclick="selectClass('mage')">
+          <div class="cc-img-zone">
+            <span class="cc-img-icon">🔮</span>
+            <span class="cc-img-label">IMAGEM DO PERSONAGEM</span>
+          </div>
+          <div class="cc-name-desc">
+            <div class="cc-name-block">
+              <div class="cc-class-name">🔥 MAGO</div>
+              <div class="cc-tagline"><em>O poder arcano é seu exército pessoal.</em></div>
+            </div>
+            <div class="cc-attrs-block">
+              <div class="cc-attrs-label">ATRIBUTOS DA CLASSE</div>
+              <div class="cc-stat-row"><span class="cc-stat-name">FOR</span><div class="cc-stat-bar"><div class="cc-stat-fill" style="width:30%"></div></div><span class="cc-stat-val">3/10</span></div>
+              <div class="cc-stat-row"><span class="cc-stat-name">AGI</span><div class="cc-stat-bar"><div class="cc-stat-fill" style="width:50%"></div></div><span class="cc-stat-val">5/10</span></div>
+              <div class="cc-stat-row"><span class="cc-stat-name">INT</span><div class="cc-stat-bar"><div class="cc-stat-fill" style="width:100%"></div></div><span class="cc-stat-val">10/10</span></div>
+              <div class="cc-stat-row"><span class="cc-stat-name">VIT</span><div class="cc-stat-bar"><div class="cc-stat-fill" style="width:30%"></div></div><span class="cc-stat-val">3/10</span></div>
+            </div>
+          </div>
+          <div class="cc-info">
+            <div class="cc-advantage-label">★ VANTAGENS DA CLASSE</div>
+            <div class="cc-advantage-text">Feitiços complexos controlam multidões à distância, mantendo-se seguro enquanto os inimigos caem.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="carousel-dots" id="class-dots">
+    <div class="c-dot active"></div><div class="c-dot"></div><div class="c-dot"></div>
+  </div>
+  <div class="carousel-bottom">
+    <button class="btn-back" onclick="nextScreen('race')">← RAÇA</button>
+    <button class="btn btn-ice" id="btn-class-next" disabled onclick="nextScreen('name')">CONFIRMAR →</button>
+  </div>
+</div>
+
+<!-- ══════ NAME ══════ -->
+<div id="screen-name" class="screen">
+  <div class="panel">
+    <div class="panel-title">COMO TE CHAMAS?<small>O NOME QUE AERYNDEL VAI LEMBRAR</small></div>
+    <div style="text-align:center;font-size:clamp(40px,9vw,62px);margin:14px 0;animation:float 3s ease-in-out infinite;filter:grayscale(30%) brightness(.8)">🧑</div>
+    <div class="name-hint">Escolha um nome para o seu personagem</div>
+    <input type="text" class="name-input" id="player-name-input" placeholder="NOME DO HERÓI" maxlength="16"
+      oninput="updateNameBtn()" onkeydown="if(event.key==='Enter'&&this.value.trim())nextScreen('story')">
+    <div class="btn-nav-row">
+      <button class="btn-back" onclick="nextScreen('class')">← CLASSE</button>
+      <button class="btn btn-ice" id="btn-name-next" disabled onclick="nextScreen('story')">COMEÇAR →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ STORY ══════ -->
+<div id="screen-story" class="screen" style="padding:20px;data-bg="aeryndel";background-size:cover;background-position:center;">
+  <div class="story-panel">
+    <div class="story-chapter">✦ O PACTO DA ORIGEM ✦</div>
+    <div class="story-title">SHATTERED SPARK<br><span style="font-size:.65em;color:var(--ice-dim)">A CENTELHA ESTILHAÇADA</span></div>
+    <p class="story-text">Em <em>Aeryndel</em>, existe uma lenda que toda criança aprende antes mesmo de aprender a andar: o <em>Pacto da Origem</em>.</p>
+    <p class="story-text">Dizem que quando o mundo foi criado, cada ser vivo recebeu uma <span class="cold">Centelha</span> — um propósito gravado na alma. Em troca, o mundo prometia que, quando chegasse a hora, o caminho se abriria.</p>
+    <p class="story-text">Então, há <em>cinquenta anos</em>, as Centelhas começaram a apagar. Sem aviso. Sem explicação.</p>
+    <p class="story-text">Você ainda sente a sua. Fraca, tremida, mas presente. E isso, em Aeryndel hoje, é algo <em>extraordinariamente raro</em>.</p>
+    <div class="story-footer"><button class="btn btn-ice" onclick="nextScreen('race-story')">CONTINUAR ▶</button></div>
+  </div>
+</div>
+
+<!-- ══════ RACE STORY ══════ -->
+<div id="screen-race-story" class="screen" style="padding:20px;data-bg="humano";background-size:cover;background-position:center top;">
+  <div class="story-panel">
+    <div class="story-chapter">✦ A CHAMA DO HUMANO ✦</div>
+    <div class="story-title" style="color:var(--silver)">A CENTELHA DOS HUMANOS</div>
+    <p class="story-text">A Centelha humana não foi dada pelos deuses. Surgiu quando o primeiro humano enfrentou uma <em>decisão impossível</em> e escolheu de qualquer jeito — por pura vontade.</p>
+    <p class="story-text">Por isso a chama humana é a mais imprevisível: <em>não pode ser extinta porque não segue regras</em>.</p>
+    <div class="story-divider">· · · · · · ·</div>
+    <p class="story-text"><em>O que acontece quando apaga:</em> o humano para de tomar decisões verdadeiras. Continua funcionando — mas em piloto automático, repetindo o que sempre fez sem questionar.</p>
+    <div class="story-footer"><button class="btn btn-crimson" onclick="startVillageArrive()">⚡ INICIAR A JORNADA</button></div>
+  </div>
+</div>
+
+<!-- ══════ VILLAGE ARRIVE — CINEMATIC ══════ -->
+<div id="screen-village-arrive" class="screen" style="padding:0">
+  <!-- Image village bg -->
+  <div class="village-bg" id="village-bg"></div>
+  <!-- Overlay text + button -->
+  <div class="vi-overlay">
+    <div class="vi-title" id="vi-title">🏚️ VILA DE CINDERMOOR</div>
+    <div class="vi-text" id="vi-text"></div>
+    <div class="vi-btn" id="vi-btn">
+      <button class="btn btn-ice" onclick="nextScreen('world')">CONTINUAR ▶</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ WORLD HUD ══════ -->
+<div id="screen-world" class="screen" style="padding:0">
+  <div class="world-bg" id="world-bg"></div>
+  <div class="world-vignette"></div>
+
+  <!-- TOP HUD -->
+  <div class="hud-top">
+    <div class="hud-char-btn" id="hud-char-btn" onclick="openChar()" title="Personagem">🧑</div>
+    <div class="hud-center">
+      CINDERMOOR
+      <small id="world-time">AMANHECER · DIA 1</small>
+    </div>
+    <div class="hud-menu-btn" onclick="openMenu()" title="Menu">☰</div>
+  </div>
+
+  <!-- Player tag -->
+  <div class="hud-player-tag">
+    <span id="world-player-name">HERÓI</span>
+    <small id="world-player-class">Humano · Guerreiro</small>
+  </div>
+
+  <!-- BOTTOM ACTIONS -->
+  <div class="hud-bottom">
+    <button class="hud-action-btn" onclick="openMap()">
+      <span class="btn-icon">🗺️</span>
+      EXPLORAR
+    </button>
+    <button class="hud-action-btn" onclick="openInventory()">
+      <span class="btn-icon">🎒</span>
+      INVENTÁRIO
+    </button>
+  </div>
+</div>
+
+<!-- ══════ NPC1 — MAREN ══════ -->
+<div id="screen-npc1" class="screen">
+  <div class="dialogue-scene" style="data-bg="rua_principal";background-size:cover;background-position:center;">
+    <div class="dialogue-bg-scene" style="display:none"></div>
+    <div class="dialogue-loc"><div class="dialogue-loc-sub">ENCONTRO</div><div class="dialogue-loc-name">CINDERMOOR — RUA PRINCIPAL</div></div>
+    <div class="npc-portrait">
+      <div class="portrait-frame">📖</div>
+      <div class="portrait-name-tag">MAREN DUSK</div>
+      <div style="font-size:11px;color:var(--b3);font-family:'Press Start 2P',monospace;text-align:center;margin-top:2px">A ESCRIBA</div>
+    </div>
+  </div>
+  <div class="dialogue-box">
+    <div class="dialogue-speaker">MAREN DUSK ✦ A Escriba</div>
+    <div class="dialogue-text" id="npc1-text"></div>
+    <div class="dialogue-continue"><div class="dialogue-next-hint" id="npc1-next-btn" onclick="advanceNPC1()" style="display:none">► CONTINUAR</div></div>
+    <div class="dialogue-choices" id="npc1-choices" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ══════ NPC2 — CAEL ══════ -->
+<div id="screen-npc2" class="screen">
+  <div class="dialogue-scene" style="data-bg="vista_vila";background-size:cover;background-position:center;">
+    <div class="dialogue-bg-scene" style="display:none"></div>
+    <div class="dialogue-loc"><div class="dialogue-loc-sub">ENCONTRO</div><div class="dialogue-loc-name">PORTÃO LESTE — CINDERMOOR</div></div>
+    <div class="npc-portrait">
+      <div class="portrait-frame" style="border-color:var(--steel-dim)">🛡️</div>
+      <div class="portrait-name-tag" style="border-color:var(--steel-dim);color:var(--steel)">CAEL DO PORTÃO</div>
+      <div style="font-size:11px;color:var(--b3);font-family:'Press Start 2P',monospace;text-align:center;margin-top:2px">O GUARDA</div>
+    </div>
+  </div>
+  <div class="dialogue-box" style="border-top-color:var(--steel-dim)">
+    <div class="dialogue-speaker" style="color:var(--steel)">CAEL DO PORTÃO ✦ Guarda Veterano</div>
+    <div class="dialogue-text" id="npc2-text"></div>
+    <div class="dialogue-continue"><div class="dialogue-next-hint" id="npc2-next-btn" onclick="advanceNPC2()" style="display:none">► CONTINUAR</div></div>
+    <div class="dialogue-choices" id="npc2-choices" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ══════ FOREST ══════ -->
+<div id="screen-forest" class="screen">
+  <div class="forest-panel">
+    <div class="forest-title">🌲 FLORESTA DE VEL'SHARA 🌲</div>
+    <span class="forest-icon">🌑</span>
+    <p class="forest-lore">As árvores de <em>Vel'Shara</em> nunca perdem as folhas — elas as trocam de verde-vivo para <em>preto-cinza</em>. No chão, cinzas prateadas formam um <em>rastro</em> propositalmente deixado.</p>
+    <div class="forest-warning"><strong>⚠ LEMBRETE</strong><p>Três expedições saíram desta vila em direção à floresta. O que voltou... não era inteiramente o que tinha ido.</p></div>
+    <div class="demo-badge">✦ FIM DA DEMO — v0.1 ✦</div>
+    <p class="demo-end-text">A jornada por <em>Vel'Shara</em> está sendo construída. O primeiro combate por turnos e a verdade sobre as Centelhas extintas aguardam.</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-ice" onclick="restartGame()">↺ JOGAR NOVAMENTE</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════ NPC-OVERVIEW ══════ -->
+<div id="screen-npc-overview" class="screen">
+  <div class="dialogue-scene" style="data-bg="vista_vila";background-size:cover;background-position:center;">
+    <div class="dialogue-bg-scene" style="display:none"></div>
+    <div class="dialogue-loc"><div class="dialogue-loc-sub">OBSERVAÇÃO</div><div class="dialogue-loc-name">CINDERMOOR — VISTA GERAL</div></div>
+    <div class="npc-portrait">
+      <div class="portrait-frame" style="border-color:var(--steel-dim)">👤</div>
+      <div class="portrait-name-tag" style="border-color:var(--b2);color:var(--ash-dim)">ALDEÃO SEM NOME</div>
+      <div style="font-size:11px;color:var(--b3);font-family:'Press Start 2P',monospace;text-align:center;margin-top:2px">HABITANTE</div>
+    </div>
+  </div>
+  <div class="dialogue-box">
+    <div class="dialogue-speaker" style="color:var(--steel)">ALDEÃO ✦ Habitante de Cindermoor</div>
+    <div class="dialogue-text" id="npc-overview-text"></div>
+    <div class="dialogue-continue"><div class="dialogue-next-hint" id="npc-overview-next" style="display:none">► CONTINUAR</div></div>
+    <div class="dialogue-choices" id="npc-overview-choices" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ══════ NPC-TAVERN ══════ -->
+<div id="screen-npc-tavern" class="screen">
+  <div class="dialogue-scene" style="data-bg="taverna";background-size:cover;background-position:center;">
+    <div class="dialogue-bg-scene" style="display:none"></div>
+    <div class="dialogue-loc"><div class="dialogue-loc-sub">ENCONTRO</div><div class="dialogue-loc-name">TAVERNA DO CORVO CINZENTO</div></div>
+    <div class="npc-portrait">
+      <div class="portrait-frame" style="border-color:var(--gold)">🍺</div>
+      <div class="portrait-name-tag" style="border-color:var(--gold);color:var(--gold-b)">VELHO OSRIC</div>
+      <div style="font-size:11px;color:var(--b3);font-family:'Press Start 2P',monospace;text-align:center;margin-top:2px">TAVERNEIRO</div>
+    </div>
+  </div>
+  <div class="dialogue-box" style="border-top-color:var(--gold)">
+    <div class="dialogue-speaker" style="color:var(--gold)">OSRIC ✦ Taverneiro do Corvo Cinzento</div>
+    <div class="dialogue-text" id="npc-tavern-text"></div>
+    <div class="dialogue-continue"><div class="dialogue-next-hint" id="npc-tavern-next" style="display:none">► CONTINUAR</div></div>
+    <div class="dialogue-choices" id="npc-tavern-choices" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ══════ NPC-MERCHANT ══════ -->
+<div id="screen-npc-merchant" class="screen">
+  <div class="dialogue-scene" style="data-bg="mercador";background-size:cover;background-position:center;">
+    <div class="dialogue-bg-scene" style="display:none"></div>
+    <div class="dialogue-loc"><div class="dialogue-loc-sub">ENCONTRO</div><div class="dialogue-loc-name">BANCA DO MERCADOR</div></div>
+    <div class="npc-portrait">
+      <div class="portrait-frame" style="border-color:var(--gold)">🏪</div>
+      <div class="portrait-name-tag" style="border-color:var(--gold);color:var(--gold-b)">BRIN ASHFOLD</div>
+      <div style="font-size:11px;color:var(--b3);font-family:'Press Start 2P',monospace;text-align:center;margin-top:2px">MERCADOR</div>
+    </div>
+  </div>
+  <div class="dialogue-box" style="border-top-color:var(--gold)">
+    <div class="dialogue-speaker" style="color:var(--gold)">BRIN ASHFOLD ✦ Mercador</div>
+    <div class="dialogue-text" id="npc-merchant-text"></div>
+    <div class="dialogue-continue"><div class="dialogue-next-hint" id="npc-merchant-next" style="display:none">► CONTINUAR</div></div>
+    <div class="dialogue-choices" id="npc-merchant-choices" style="display:none"></div>
+  </div>
+</div>
+
+</div><!-- /game -->
+
+<!-- ══════ OVERLAY: MAP ══════ -->
+<div id="overlay-map" class="overlay">
+  <div class="map-header">
+    <h2>🗺 MAPA DE CINDERMOOR</h2>
+    <div class="overlay-close" onclick="closeOverlay('map')">✕</div>
+  </div>
+  <div class="map-area">
+    <div class="map-pin" style="left:20%;top:24%" onclick="selectMapPin('overview')">
+      <div class="map-pin-icon">👁</div>
+      <div class="map-pin-label">01 VISTA GERAL</div>
+    </div>
+    <div class="map-pin npc-here" style="left:55%;top:27%" onclick="selectMapPin('mainstreet')">
+      <div class="map-pin-icon">🛖</div>
+      <div class="map-pin-label">02 RUA PRINCIPAL</div>
+    </div>
+    <div class="map-pin" style="left:26%;top:68%" onclick="selectMapPin('river')">
+      <div class="map-pin-icon">🌊</div>
+      <div class="map-pin-label">03 RIO ASHFEN</div>
+    </div>
+    <div class="map-pin" style="left:70%;top:37%" onclick="selectMapPin('tavern')">
+      <div class="map-pin-icon">🍺</div>
+      <div class="map-pin-label">04 TAVERNA</div>
+    </div>
+    <div class="map-pin npc-here" style="left:80%;top:28%" onclick="selectMapPin('east-exit')">
+      <div class="map-pin-icon">🌲</div>
+      <div class="map-pin-label">05 SAÍDA LESTE</div>
+    </div>
+    <div class="map-pin" style="left:62%;top:54%" onclick="selectMapPin('merchant')">
+      <div class="map-pin-icon">🏪</div>
+      <div class="map-pin-label">06 MERCADOR</div>
+    </div>
+  </div>
+  <div class="map-info-bar">
+    <div class="map-info-name" id="map-info-name">Selecione um local para explorar</div>
+    <div class="map-info-desc" id="map-info-desc">Toque em um ícone no mapa para ver os detalhes do local.</div>
+    <div class="map-info-actions" id="map-info-actions"></div>
+  </div>
+</div>
+
+<!-- ══════ OVERLAY: INVENTORY ══════ -->
+<div id="overlay-inventory" class="overlay">
+  <div class="inv-header">
+    <h2>🎒 MOCHILA DO VIAJANTE</h2>
+    <div class="overlay-close" onclick="closeOverlay('inventory')">✕</div>
+  </div>
+  <div class="inv-body">
+    <div class="inv-pack-art">🎒</div>
+    <div class="inv-title-row">ESPAÇOS DE ARMAZENAMENTO — 20 SLOTS</div>
+    <div class="inv-grid" id="inv-grid"></div>
+    <div class="inv-tooltip" id="inv-tooltip">Toque em um slot para ver o item</div>
+  </div>
+</div>
+
+<!-- ══════ OVERLAY: MENU ══════ -->
+<div id="overlay-menu" class="overlay">
+  <div class="menu-panel">
+    <div class="menu-title">PAUSA</div>
+    <div class="menu-options">
+      <button class="menu-opt"><span class="menu-opt-icon">💾</span> SALVAR</button>
+      <button class="menu-opt"><span class="menu-opt-icon">⚙️</span> CONFIGURAÇÕES</button>
+      <button class="menu-opt" onclick="closeOverlay('menu')"><span class="menu-opt-icon">↩</span> VOLTAR</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ OVERLAY: CHARACTER ══════ -->
+<div id="overlay-character" class="overlay">
+  <div class="char-header">
+    <h2>👤 FICHA DO PERSONAGEM</h2>
+    <div class="overlay-close" onclick="closeOverlay('character')">✕</div>
+  </div>
+  <div class="char-body">
+    <div class="char-portrait-zone">
+      <span class="char-portrait-icon" id="char-portrait-icon">⚔️</span>
+      <div class="char-class-badge" id="char-class-badge">GUERREIRO</div>
+    </div>
+    <div class="char-info">
+      <div class="char-row">
+        <div class="char-row-label">NOME DO HERÓI</div>
+        <div class="char-row-value" id="char-name-val">—</div>
+      </div>
+      <div class="char-row">
+        <div class="char-row-label">RAÇA · CLASSE</div>
+        <div class="char-row-value" id="char-race-class">—</div>
+      </div>
+      <div class="char-divider"></div>
+      <div class="char-row">
+        <div class="char-row-label">DESCRIÇÃO DA CLASSE</div>
+        <div class="char-row-text" id="char-class-desc">—</div>
+      </div>
+      <div class="char-row">
+        <div class="char-row-label">⚡ BÔNUS DA RAÇA</div>
+        <div class="char-row-text"><em>+1 em qualquer atributo</em> ao subir de nível.</div>
+      </div>
+      <div class="char-row">
+        <div class="char-row-label">★ VANTAGEM SOLO</div>
+        <div class="char-row-text" id="char-advantage">—</div>
+      </div>
+      <div class="char-divider"></div>
+      <div class="char-row">
+        <div class="char-row-label">ATRIBUTOS BASE</div>
+        <div class="char-stats" id="char-stats"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="progress-indicator"><div class="progress-fill" id="progress-bar" style="width:0%"></div></div>
+<script src="game.js"></script>
+</body>
+</html>
